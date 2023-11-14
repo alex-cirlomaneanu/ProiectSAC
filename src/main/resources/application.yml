@@ -1,1 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://car-recommendation.database.windows.net:1433;databaseName=CarRecommendation
+    username: car_admin@car-recommendation
+    password: P@rol@32
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: false
+    database-platform: org.hibernate.dialect.SQLServerDialect
 
+server:
+  port: 8080
