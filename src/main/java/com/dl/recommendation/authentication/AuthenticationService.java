@@ -26,7 +26,7 @@ public class AuthenticationService {
                 .password(passwordEncoder.bCryptPasswordEncoder().encode(request.getPassword()))
                 .role(UserRole.USER)
                 .locked(false)
-                .enabled(false)
+                .enabled(true)
                 .build();
 
         String error = "";
@@ -63,14 +63,14 @@ public class AuthenticationService {
                     .build();
         }
 
-        return authenticateUser(user, request.getPassword());
+        return authenticateUser(request, user);
     }
 
-    private AuthenticationResponse authenticateUser(User user, String password) {
+    private AuthenticationResponse authenticateUser(AuthenticationRequest request, User user) {
         authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
-                    user.getEmail(),
-                    password
+                request.getEmail(),
+                request.getPassword()
             )
         );
 
