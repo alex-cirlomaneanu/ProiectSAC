@@ -1,3 +1,9 @@
+.car-carousel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
 .car-card-carousel {
     display: flex;
     flex-direction: column;
@@ -7,27 +13,31 @@
     border: none;
     max-height: 450px;
     min-height: 300px;
-    justify-content: space-between;
+    justify-content: space-around;
+    width: 18rem;
+    border: #1c1c1b;
+    border-radius: 10px;
 }
 
 .car-card-carousel img {
     width: 100%;
-    max-height: 390px;
-    object-fit: cover;
+    margin-top: -40px;
+    min-height: 300px;
+    max-height: 300px;
+    object-fit: scale-down;
 }
 
-.book-carousel-body {
-    background-color: transparent;
+.car-carousel-body {
+    background-color: antiquewhite;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 .car-card-carousel-title {
+    margin-top: 20px;
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 5px;
 }
 
 .car-card-carousel-text {
@@ -39,11 +49,11 @@
 }
 
 .carousel-control-prev {
-    left: -75px; /* Adjust the desired horizontal position */
+    left: -100px; /* Adjust the desired horizontal position */
 }
 
 .carousel-control-next {
-    right: -75px; /* Adjust the desired horizontal position */
+    right: -100px; /* Adjust the desired horizontal position */
 }
 
 .link-to-car {
