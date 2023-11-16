@@ -26,7 +26,7 @@ a {
   display: inline-block;
 }
 
-.fotm-control:focus {
+.form-control:focus {
   box-shadow: none;
   border-color: inherit;
 }
@@ -78,7 +78,7 @@ a {
 }
 
 .header-upper .dropdown button:focus {
-  background-color: none;
+  background-color: transparent;
 }
 
 
@@ -237,7 +237,8 @@ footer .input-group-text {
 /* Home page */
 
 .home-page {
-  background-image: url(/public/images/bg-image.png);
+  /*background-image: url(/public/images/bg-image.png);*/
+  background-color: ghostwhite;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
