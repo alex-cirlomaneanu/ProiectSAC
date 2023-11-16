@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -78,9 +77,9 @@ public class CollectorService {
                 writer.write(entry.getKey() + ": " +  entry.getValue());
                 writer.newLine();
             }
-            System.out.println("List saved to file successfully.");
+            log.info("List saved to file successfully.");
         } catch (IOException e) {
-            System.err.println("Error saving list to file: " + e.getMessage());
+            log.error("Error saving list to file: " + e.getMessage());
         }
     }
 
@@ -153,14 +152,14 @@ public class CollectorService {
                             }
                         }
 
-                        String path = "(//article)[" + i + "]";
-                        var elem = page.querySelector(path);
+                        String selector = "//*[@id='__next']/div/div/div/div[2]/main/div[2]/div/div[3]/div[2]/div[" + (i + 1) +"]/article";
+                        var elem = page.querySelector(selector);
                         if (elem == null) {
-                            break;
+                            continue;
                         } else {
                             elem.click();
+                            page.waitForLoadState();
                         }
-                        Thread.sleep(4000);
                         addVehicle(page);
                     }
                 }
