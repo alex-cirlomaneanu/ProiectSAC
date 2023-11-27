@@ -1,6 +1,6 @@
 package com.dl.recommendation.vehicle.details;
 
-import com.dl.recommendation.seller.ad.Ad;
+import com.dl.recommendation.ad.Ad;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

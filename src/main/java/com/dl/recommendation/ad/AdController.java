@@ -1,4 +1,4 @@
-package com.dl.recommendation.seller.ad;
+package com.dl.recommendation.ad;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;

@@ -1,9 +1,11 @@
 package com.dl.recommendation.vehicle.details;
 
+import com.dl.recommendation.ad.Ad;
+import com.dl.recommendation.ad.AdRepository;
 import com.dl.recommendation.cache.SqlCaching;
 import com.dl.recommendation.image.FileDataService;
-import com.dl.recommendation.seller.*;
-import com.dl.recommendation.seller.ad.*;
+import com.dl.recommendation.user.User;
+import com.dl.recommendation.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -18,16 +20,16 @@ public class DetailsService {
     private final static org.slf4j.Logger LOG = LoggerFactory.getLogger(DetailsService.class);
 
     private final DetailsRepository detailsRepository;
-    private final SellerService sellerService;
+    private final UserService userService;
     private final FileDataService fileDataService;
     private final AdRepository adRepository;
     private final SqlCaching cache;
 
     public DetailsResponse addVehicle(MultipartFile[] files, DetailsRequest detailsRequest, String jwtToken) throws IOException {
-        Seller seller = sellerService.getSellerById(jwtToken);
+        User user = userService.getUserByToken(jwtToken);
 
-        if (seller == null) {
-            LOG.info("Seller not found");
+        if (user == null) {
+            LOG.info("User not found");
             return null;
         }
 
@@ -37,12 +39,12 @@ public class DetailsService {
                        detailsRequest.getCylinderCapacity() + " " +
                        detailsRequest.getFuelType();
 
-        Map<String, String> imagesAndPath = fileDataService.uploadImage(files, seller.getId(), title);
+        Map<String, String> imagesAndPath = fileDataService.uploadImage(files, user.getId(), title);
         Details details = DetailsMapper.map(detailsRequest, imagesAndPath.get("path"), imagesAndPath.get("images"));
 
         Ad ad = new Ad();
         ad.setId(UUID.randomUUID().toString());
-        ad.setSeller(seller);
+        ad.setUser(user);
         adRepository.save(ad);
 
         details.setAd(ad);
@@ -83,15 +85,15 @@ public class DetailsService {
     }
 
     public List<DetailsResponse> getVehiclesById(String jwtToken) {
-        Seller seller = sellerService.getSellerById(jwtToken);
+        User user = userService.getUserByToken(jwtToken);
 
-        if (seller == null) {
-            LOG.info("Seller not found");
+        if (user == null) {
+            LOG.info("User not found");
             return null;
         }
 
 
-        List<Ad> ads = adRepository.getAdsBySellerId(seller.getId());
+        List<Ad> ads = adRepository.getAdsByUserId(user.getId());
         List<DetailsResponse> vehicles = new ArrayList<>();
 
         for (Ad ad : ads) {

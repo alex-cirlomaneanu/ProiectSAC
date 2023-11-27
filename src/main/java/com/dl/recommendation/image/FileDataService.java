@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class FileDataService {
-    private final static String FILE_PATH = "/home/alex/Desktop/frontend/auto-trade/public/images/users/";
+    private final static String FILE_PATH = "/home/alex/IdeaProjects/ProiectSAC/src/main/fe_react/public/images/users/";
     private final static String USER = "user";
 
     private String getTypeImage(String contentType) {
@@ -61,29 +61,6 @@ public class FileDataService {
 
         return map;
     }
-
-
-    public String uploadSellerImage(MultipartFile file, String userID) throws IOException {
-        String filePath = FILE_PATH + userID;
-        File folder = new File(filePath);
-
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-
-        filePath +=  "/" + USER;
-        folder = new File(filePath);
-
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-
-        filePath +=  "/" + file.getOriginalFilename();
-        file.transferTo(new File(filePath));
-
-        return filePath;
-    }
-
 
 //
 //    public byte[] downloadImage(String fileName) throws IOException {

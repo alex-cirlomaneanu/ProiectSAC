@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Mapper
 public class DetailsMapper {
-    private static final String PATH = "/home/alex/Desktop/frontend/auto-trade/public/";
+    private static final String PATH = "src/main/fe_react/public";
 
     public static Details map(DetailsRequest detailsRequest, String pathImages, String images) {
         return Details.builder()

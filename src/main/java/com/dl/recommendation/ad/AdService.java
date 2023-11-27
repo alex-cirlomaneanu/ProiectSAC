@@ -1,4 +1,4 @@
-package com.dl.recommendation.seller.ad;
+package com.dl.recommendation.ad;
 
 import com.dl.recommendation.user.User;
 import com.dl.recommendation.user.UserService;
@@ -20,11 +20,11 @@ public class AdService {
             return -1;
         }
 
-        return adRepository.getAdsBySellerId(user.getId()).size();
+        return adRepository.getAdsByUserId(user.getId()).size();
     }
 
-    public List<Ad> getAdsBySellerId(String userId) {
-        return adRepository.getAdsBySellerId(userId);
+    public List<Ad> getAdsByUserId(String userId) {
+        return adRepository.getAdsByUserId(userId);
     }
 
 

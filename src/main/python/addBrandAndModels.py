@@ -4,7 +4,7 @@ import json
 
 #add user
 url = 'http://localhost:8080/api/v1/auth/register'
-payload = {'firstname': "Alex", 'lastname': "Razvan", 'email': "razvanalex948@gmail.com", 'password': "1234"}
+payload = {'firstname': "Alex", 'lastname': "Razvan", 'email': "razvanalex949@gmail.com", 'password': "1234"}
 
 response = requests.post(url, json=payload)
 print(response.text)
@@ -29,16 +29,15 @@ map = dict(sorted(map.items()))
 
 url = 'http://localhost:8080/api/v1/vehicles/brands/addModel'
 urlBrand = 'http://localhost:8080/api/v1/vehicles/addBrand'
-headers = {'Authorization': 'Bearer ' + token}
 
 for brand in map:
     payload = {'brand': brand}
-    response = requests.post(urlBrand, data=payload, headers=headers)
+    response = requests.post(urlBrand, data=payload)
     print(response.text)
     for model in map[brand]:
         if model == "Altul":
             continue
         payload = {'brand': brand, 'model': model}
-        response = requests.post(url, data=payload, headers=headers)
+        response = requests.post(url, data=payload)
         print(response.text)
 

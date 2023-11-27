@@ -33,7 +33,7 @@ public class DetailsController {
         return ResponseEntity.ok(service.getVehicleById(id));
     }
 
-    @GetMapping("/getSellerVehicles")
+    @GetMapping("/getUserVehicles")
     public ResponseEntity<?> getVehiclesById(@RequestHeader(HttpHeaders.AUTHORIZATION) String jwtToken) {
         return ResponseEntity.ok(service.getVehiclesById(jwtToken));
     }

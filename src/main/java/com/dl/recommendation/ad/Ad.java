@@ -1,6 +1,6 @@
-package com.dl.recommendation.seller.ad;
+package com.dl.recommendation.ad;
 
-import com.dl.recommendation.seller.Seller;
+import com.dl.recommendation.user.User;
 import com.dl.recommendation.vehicle.details.Details;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,8 +20,8 @@ public class Ad {
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seller_id")
-    private Seller seller;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @OneToOne(mappedBy = "ad", cascade = CascadeType.ALL, orphanRemoval = true)
     private Details details;
@@ -30,7 +30,7 @@ public class Ad {
     public String toString() {
         return "Ad{" +
                 "id='" + id + '\'' +
-                "seller.id='" + seller.getId() + '\'' +
+                "user.id='" + user.getId() + '\'' +
                 '}';
     }
 }
