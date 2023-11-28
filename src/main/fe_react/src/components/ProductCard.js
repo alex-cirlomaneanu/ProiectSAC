@@ -8,7 +8,10 @@ const ProductCard = ({ product, id, fetch}) => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [text, setText] = useState("");
     const [namePopup, setNamePopup] = useState("");
+    const image_path = '/images/users/f268a0e7-b683-45d1-a130-46a80ffad560/' + product.title  + '/' + product.images[0];
+    console.log(image_path)
 
+    // console.log(product)
     const openPopup = () => {
         setIsPopupOpen(true);
     };
@@ -71,13 +74,12 @@ const ProductCard = ({ product, id, fetch}) => {
             localStorage.setItem(id + 'compare', true)
             addVehicle("compareList")
             setText("Go to compare products")
-            setNamePopup("Comapre Products")
+            setNamePopup("Compare Products")
             openPopup()
         }
 
         setCompareVehicle(localStorage.getItem(id + 'compare') ? 'images/svg/comp.svg' : 'images/svg/prodcompare.svg')
     }
-
 
     return (
         <>
@@ -86,7 +88,7 @@ const ProductCard = ({ product, id, fetch}) => {
                 <div className='product-card container'>
                     <div className='row'>
                         <div className='col-6 row product-image'>
-                            <img src={"/home/alex/IdeaProjects/ProiectSAC/src/main/fe_react/public/images/users/f268a0e7-b683-45d1-a130-46a80ffad560/Audi A1 2011 1 197 cm3 Gasoline/img1.png"} className='img-fluid d-block' alt="product image"/>
+                            <img src={image_path} className='img-fluid d-block' alt="product image"/>
                         </div>
 
                         <div className='col-4 product-title-info'>
