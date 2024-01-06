@@ -66,6 +66,7 @@ public class DetailsMapper {
                 .Km(vehicle.getKm())
                 .owned(vehicle.getOwned())
                 .dateAdded(vehicle.getDateAdded())
+                .pathImages(vehicle.getPathImages())
                 .build();
     }
 }

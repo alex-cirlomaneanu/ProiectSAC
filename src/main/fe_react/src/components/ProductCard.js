@@ -8,9 +8,6 @@ const ProductCard = ({ product, id, fetch}) => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [text, setText] = useState("");
     const [namePopup, setNamePopup] = useState("");
-    const image_path = '/images/users/f268a0e7-b683-45d1-a130-46a80ffad560/' + product.title  + '/' + product.images[0];
-    console.log(image_path)
-
     // console.log(product)
     const openPopup = () => {
         setIsPopupOpen(true);
@@ -88,7 +85,7 @@ const ProductCard = ({ product, id, fetch}) => {
                 <div className='product-card container'>
                     <div className='row'>
                         <div className='col-6 row product-image'>
-                            <img src={image_path} className='img-fluid d-block' alt="product image"/>
+                            <img src={product.pathImages} className='img-fluid d-block' alt="product image"/>
                         </div>
 
                         <div className='col-4 product-title-info'>
@@ -101,7 +98,7 @@ const ProductCard = ({ product, id, fetch}) => {
                         </div>
                         <div className='col-2 product-price-info d-flex flex-column'>
                             <div className='row price flex-grow-1'>
-                                <h5 className='price text-end'>{product.price.concat(product.currency)}</h5>
+                                <h5 className='price text-end'>{product.price.concat(' EUR')}</h5>
                             </div>
                             <div className='row icons text-end'>
                                 <img
