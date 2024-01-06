@@ -12,9 +12,7 @@ import lombok.NoArgsConstructor;
 public class DetailsRequest {
     private String VIN;
     private String Km;
-    private Boolean owned;
-    private Boolean imported;
-    private Boolean rightHandDrive;
+    private String owned;
     private Integer year;
     private String brand;
     private String model;
@@ -32,9 +30,7 @@ public class DetailsRequest {
     private Integer numberOfSeats;
     private String description;
     private String price;
-    private String currency;
-    private String priceDetails;
-    private String vehicle_condition;
+    private String vehicleCondition;
     private String countryOfOrigin;
-    private String view360;
+    private String pathImages;
 }

@@ -23,20 +23,11 @@ public class Details {
     @MapsId
     private Ad ad;
 
-    @Column(name = "vin")
-    private String VIN;
-
     @Column(name = "km", nullable = false)
     private String Km;
 
     @Column(name = "owned")
-    private Boolean owned;
-
-    @Column(name = "imported")
-    private Boolean imported;
-
-    @Column(name = "right_hand_drive")
-    private Boolean rightHandDrive;
+    private String owned;
 
     @Column(name = "year")
     private Integer year;
@@ -86,30 +77,18 @@ public class Details {
     @Column(name = "path_images", nullable = false)
     private String pathImages;
 
-    @Column(name = "images", nullable = false, columnDefinition = "TEXT")
-    private String images;
-
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "price")
     private String price;
 
-    @Column(name = "currency")
-    private String currency;
-
-    @Column(name = "price_details")
-    private String priceDetails;
-
     @Column(name = "vehicle_condition")
     private String vehicleCondition;
 
     @Column(name = "country_of_origin")
     private String countryOfOrigin;
-    
+
     @Column(name = "date_added")
     private Timestamp dateAdded;
-    
-    @Column(name = "view_360")
-    private String view360;
 }

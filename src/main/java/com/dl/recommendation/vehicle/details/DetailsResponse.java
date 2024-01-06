@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Data
 @Builder
@@ -15,14 +14,10 @@ import java.util.List;
 public class DetailsResponse {
    private String title;
    private String price;
-   private String currency;
-   private String path;
+   private String pathImages;
    private String id;
-   private String VIN;
    private String Km;
-   private Boolean owned;
-   private Boolean imported;
-   private Boolean rightHandDrive;
+   private String owned;
    private Integer year;
    private String brand;
    private String model;
@@ -39,11 +34,7 @@ public class DetailsResponse {
    private String colorOption;
    private Integer numberOfSeats;
    private String description;
-   private String priceDetails;
    private String vehicle_condition;
    private String countryOfOrigin;
-   private List<String> images;
    private Timestamp dateAdded;
-   private String view360;
-
 }

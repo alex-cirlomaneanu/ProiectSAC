@@ -18,9 +18,9 @@ public class DetailsController {
     private final DetailsService service;
 
     @PostMapping(path = "/uploadVehicle")
-    public ResponseEntity<?> uploadCar(@ModelAttribute DetailsRequest request, @RequestParam("image") MultipartFile[] files,
-                                       @RequestHeader(HttpHeaders.AUTHORIZATION) String jwtToken) throws IOException {
-        return ResponseEntity.ok(service.addVehicle(files, request, jwtToken));
+    public ResponseEntity<?> uploadCar(@ModelAttribute DetailsRequest request,
+                                       @RequestHeader(HttpHeaders.AUTHORIZATION) String jwtToken) {
+        return ResponseEntity.ok(service.addVehicle(request, jwtToken));
     }
 
     @GetMapping(path = "/getAllVehicles")

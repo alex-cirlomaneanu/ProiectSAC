@@ -21,11 +21,10 @@ public class DetailsService {
 
     private final DetailsRepository detailsRepository;
     private final UserService userService;
-    private final FileDataService fileDataService;
     private final AdRepository adRepository;
     private final SqlCaching cache;
 
-    public DetailsResponse addVehicle(MultipartFile[] files, DetailsRequest detailsRequest, String jwtToken) throws IOException {
+    public DetailsResponse addVehicle(DetailsRequest detailsRequest, String jwtToken)  {
         User user = userService.getUserByToken(jwtToken);
 
         if (user == null) {
@@ -33,14 +32,7 @@ public class DetailsService {
             return null;
         }
 
-        String title = detailsRequest.getBrand() + " " +
-                       detailsRequest.getModel() + " " +
-                       detailsRequest.getYear() + " " +
-                       detailsRequest.getCylinderCapacity() + " " +
-                       detailsRequest.getFuelType();
-
-        Map<String, String> imagesAndPath = fileDataService.uploadImage(files, user.getId(), title);
-        Details details = DetailsMapper.map(detailsRequest, imagesAndPath.get("path"), imagesAndPath.get("images"));
+        Details details = DetailsMapper.map(detailsRequest);
 
         Ad ad = new Ad();
         ad.setId(UUID.randomUUID().toString());
@@ -61,27 +53,14 @@ public class DetailsService {
         List<DetailsResponse> response = new ArrayList<>();
 
         for (Map.Entry<String, Details> entry : vehicles.entrySet()) {
-            response.add(DetailsMapper.mapDetailsResponse(entry.getValue(), getArrayImages(entry.getValue().getImages())));
+            response.add(DetailsMapper.mapDetailsResponse(entry.getValue()));
         }
         return response;
     }
 
-    private List<String> getArrayImages(String images) {
-        String cleanedInput = images.substring(1, images.length() - 1);
-        String[] imagesArray = cleanedInput.split(", ");
-        List<String> imagesList = new ArrayList<>();
-
-        for (String s : imagesArray) {
-            imagesList.add(s.trim());
-        }
-
-        Collections.sort(imagesList);
-        return imagesList;
-    }
-
     public DetailsResponse getVehicleById(String id) {
         Details vehicle = cache.getDetailsById(id);
-        return DetailsMapper.mapDetailsResponse(vehicle, getArrayImages(vehicle.getImages()));
+        return DetailsMapper.mapDetailsResponse(vehicle);
     }
 
     public List<DetailsResponse> getVehiclesById(String jwtToken) {
