@@ -53,29 +53,9 @@ const ProductCard = ({ product, id, fetch}) => {
         } else {
             localStorage.setItem(id + 'wish', true);
             addVehicle("wishlist");
-            setText("Go to wishlists");
-            setNamePopup("Wishlist");
-            openPopup();
         }
 
         setWishVehicle(localStorage.getItem(id + 'wish') ? 'images/svg/wish-black.svg' : 'images/svg/wish.svg')
-    }
-
-    const handleCompareClick = (event) => {
-        event.preventDefault()
-
-        if (localStorage.getItem(id + 'compare')) {
-            localStorage.removeItem(id + 'compare')
-            removeVehicle("compareList")
-        } else {
-            localStorage.setItem(id + 'compare', true)
-            addVehicle("compareList")
-            setText("Go to compare products")
-            setNamePopup("Compare Products")
-            openPopup()
-        }
-
-        setCompareVehicle(localStorage.getItem(id + 'compare') ? 'images/svg/comp.svg' : 'images/svg/prodcompare.svg')
     }
 
     return (
@@ -100,14 +80,7 @@ const ProductCard = ({ product, id, fetch}) => {
                             <div className='row price flex-grow-1'>
                                 <h5 className='price text-end'>{product.price.concat(' EUR')}</h5>
                             </div>
-                            <div className='row icons text-end'>
-                                <img
-                                    className='img-fluid ms-auto'
-                                    src={compareVehicle}
-                                    alt='compare'
-                                    onClick={handleCompareClick}
-                                />
-                            </div>
+
                             <div className='row icons text-end'>
 
                                 <img

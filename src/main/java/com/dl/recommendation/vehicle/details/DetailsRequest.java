@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DetailsRequest {
-    private String VIN;
     private String Km;
     private String owned;
     private Integer year;
@@ -33,4 +32,5 @@ public class DetailsRequest {
     private String vehicleCondition;
     private String countryOfOrigin;
     private String pathImages;
+    private String adId;
 }

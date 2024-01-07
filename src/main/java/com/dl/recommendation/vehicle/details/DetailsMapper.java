@@ -8,7 +8,7 @@ import java.util.UUID;
 public class DetailsMapper {
     public static Details map(DetailsRequest detailsRequest) {
         return Details.builder()
-                .id(UUID.randomUUID().toString())
+                .id(detailsRequest.getAdId())
                 .Km(detailsRequest.getKm())
                 .owned(detailsRequest.getOwned())
                 .year(detailsRequest.getYear())

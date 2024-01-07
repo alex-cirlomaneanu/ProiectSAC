@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Carousel, Card, Row, Col } from 'react-bootstrap';
 import './CarCarousel.css';
 import {Link} from "react-router-dom";
+import axios from "axios";
+import {getAllVehicles, getWishVehicles} from "../../pages/constants/Endpoints";
 
 /**
  * Componenta pentru afisarea recomandarilor
@@ -10,59 +12,49 @@ import {Link} from "react-router-dom";
  * @constructor
  */
 const CarCarousel = () => {
-    const car1 = {
-        name: "BMW",
-        model: "i7",
-        carId: "1",
-        carImage: "data:image/jpeg;base64,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"
-    }
+    const [wishVehicle, setWishVehicle] = useState(localStorage.getItem('wishlist'));
+    const uuidArray = wishVehicle.split(',');
+    const transformedArray = [`${uuidArray[0]},${uuidArray[1]}`, ...uuidArray.slice(2)];
 
-    const car2 = {
-        name: "Dacia",
-        model: "Logan",
-        carId: "2",
-        carImage: "data:image/jpeg;base64,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"
-    }
-//Nume de variabile sugestive
-    const car3 = JSON.parse(JSON.stringify(car1))
-    const car4 = JSON.parse(JSON.stringify(car1))
-    const car5 = JSON.parse(JSON.stringify(car1))
-    const car6 = JSON.parse(JSON.stringify(car2))
-    const car7 = JSON.parse(JSON.stringify(car2))
-    const car8 = JSON.parse(JSON.stringify(car2))
-    const car9 = JSON.parse(JSON.stringify(car2))
+    useEffect(() => {
+        axios.post(getWishVehicles, {
+            data: transformedArray
+        }).then(response => {
+            console.log(response.data);
 
-    const cars = [];
-    cars.push(car1, car2,  car4, car5, car6, car7, car8, car9);
-    const carChunks = chunkArray(cars, 7); // Split books into chunks of 3
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }, []);
 
     return (
         <div className="car-carousel">
             <Carousel interval={null} indicators={true} variant="dark">
-                {carChunks.map((chunk, index) => (
-                    <Carousel.Item key={index}>
-                        <Col>
-                            {chunk.map((car, innerIndex) => (
-                                    <Link className="link-to-car" to={`/cars/${car.carId}`}>
-                                        <Card className="car-card-carousel">
-                                            <Card.Title className="car-card-carousel-title">{car.name}</Card.Title>
-                                            <Card.Subtitle>{car.model}</Card.Subtitle>
-                                            <Card.Body className="car-card-carousel-body">
-                                                {car.carImage === null ? (
-                                                    <Card.Img variant="top" src="" alt={car.name}/>
-                                                ) : (
-                                                    <Card.Img variant="top" src={car.carImage} alt={car.name}/>
-                                                )}
-                                                <Card.Text className="car-card-carousel-text">
-                                                    <p>TODO informatii despre masina</p>
-                                                </Card.Text>
-                                            </Card.Body>
-                                        </Card>
-                                    </Link>
-                            ))}
-                        </Col>
-                    </Carousel.Item>
-                ))}
+                {/*{carChunks.map((chunk, index) => (*/}
+                {/*    <Carousel.Item key={index}>*/}
+                {/*        <Col>*/}
+                {/*            {chunk.map((car, innerIndex) => (*/}
+                {/*                    <Link className="link-to-car" to={`/cars/${car.carId}`}>*/}
+                {/*                        <Card className="car-card-carousel">*/}
+                {/*                            <Card.Title className="car-card-carousel-title">{car.name}</Card.Title>*/}
+                {/*                            <Card.Subtitle>{car.model}</Card.Subtitle>*/}
+                {/*                            <Card.Body className="car-card-carousel-body">*/}
+                {/*                                {car.carImage === null ? (*/}
+                {/*                                    <Card.Img variant="top" src="" alt={car.name}/>*/}
+                {/*                                ) : (*/}
+                {/*                                    <Card.Img variant="top" src={car.carImage} alt={car.name}/>*/}
+                {/*                                )}*/}
+                {/*                                <Card.Text className="car-card-carousel-text">*/}
+                {/*                                    <p>TODO informatii despre masina</p>*/}
+                {/*                                </Card.Text>*/}
+                {/*                            </Card.Body>*/}
+                {/*                        </Card>*/}
+                {/*                    </Link>*/}
+                {/*            ))}*/}
+                {/*        </Col>*/}
+                {/*    </Carousel.Item>*/}
+                {/*))}*/}
             </Carousel>
         </div>
     );

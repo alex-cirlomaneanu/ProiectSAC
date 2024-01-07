@@ -35,7 +35,7 @@ public class DetailsService {
         Details details = DetailsMapper.map(detailsRequest);
 
         Ad ad = new Ad();
-        ad.setId(UUID.randomUUID().toString());
+        ad.setId(detailsRequest.getAdId());
         ad.setUser(user);
         adRepository.save(ad);
 
