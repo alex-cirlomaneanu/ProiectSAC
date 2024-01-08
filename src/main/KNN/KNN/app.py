@@ -4,9 +4,7 @@ from joblib import load
 from flask_cors import CORS
 
 from sklearn.base import BaseEstimator, TransformerMixin
-# (BaseEstimator, TransformerMixin). This makes it compatible with 
-# scikit-learn’s Pipelinesclass ColumnsSelector(BaseEstimator, TransformerMixin):
-    # initializer 
+
 from transformers import RemoveColumnsTransformer, \
                             OHETransformer, \
                             BinaryTransformer, \
@@ -30,6 +28,12 @@ def predict():
     
     df_liked = df[df['ad_id'].isin(datas)]
     print(df_liked)
+
+    if len(df_liked) == 0:
+        indices = range(0, 20)
+        df_neighbors = df.iloc[indices]
+        neigbhros_ad_ids = df_neighbors['ad_id'].tolist()
+        return jsonify(neigbhros_ad_ids), 200
 
     indices = []
     for index, row in df_liked.iterrows():
